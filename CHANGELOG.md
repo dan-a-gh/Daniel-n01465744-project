@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.2.0 - 2024-03-01
+#### Features
+- Add network module. Update doc. Add related screenshots. - (23b39e7) - Daniel Allison
+
+- - -
+
 ## 0.1.0 - 2024-03-01
 #### Bug Fixes
 - Add bump hooks to cog.toml - (db38955) - Daniel Allison
