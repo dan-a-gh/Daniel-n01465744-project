@@ -15,3 +15,7 @@ output "rsv_name" {
 output "storage_acc_name" {
   value = azurerm_storage_account.n01465744_storage_acc.name
 }
+
+output "storage_account_uri" {
+  value = azurerm_storage_account.n01465744_storage_acc.primary_blob_endpoint
+}

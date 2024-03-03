@@ -114,3 +114,71 @@ module "common_n01465744" {
     Environment    = var.project_metadata.Environment
   }
 }
+
+module "linux_n01465744" {
+  source = "./modules/linux"
+  linux_rg = {
+    name     = module.rgroup_n01465744.name
+    location = module.rgroup_n01465744.location
+  }
+  linux_avs = {
+    name                         = "n01465744_linux_avs"
+    platform_fault_domain_count  = 2
+    platform_update_domain_count = 5
+  }
+  linux_count = 2
+  linux_nic = {
+    ip_configuration = {
+      subnet_id                     = module.network_n01465744.subnet_id
+      private_ip_address_allocation = "Dynamic"
+    }
+  }
+  linux_vm = {
+    name                = "n01465744-u-vm"
+    resource_group_name = module.rgroup_n01465744.name
+    location            = module.rgroup_n01465744.location
+    size                = "Standard_B1s"
+    admin_username      = "n01465744"
+    os_disk = {
+      caching              = "ReadWrite"
+      storage_account_type = "Premium_LRS"
+    }
+    source_image_reference = {
+      publisher = "OpenLogic"
+      offer     = "CentOs"
+      sku       = "8_2-gen2"
+      version   = "8.2.2020111801"
+    }
+    boot_diagnostics = {
+      storage_account_uri = module.common_n01465744.storage_account_uri
+    }
+  }
+  linux_vm_ext_net_watch = {
+    type                 = "NetworkWatcherAgentLinux"
+    type_handler_version = "1.4"
+    publisher            = "Microsoft.Azure.NetworkWatcher"
+  }
+  linux_vm_ext_monitor = {
+    type                 = "AzureMonitorLinuxAgent"
+    type_handler_version = "1.9"
+    publisher            = "Microsoft.Azure.Monitor"
+  }
+  linux_pip = {
+    allocation_method = "Dynamic"
+  }
+  public_key  = "/var/home/danielallison/.ssh/id_rsa.pub"
+  private_key = "/var/home/danielallison/.ssh/id_rsa"
+  linux_provisioner = {
+    remote_exec = {
+      connection = {
+        type = "ssh"
+      }
+    }
+  }
+  project_metadata = {
+    Assignment     = var.project_metadata.Assignment
+    Name           = var.project_metadata.Name
+    ExpirationDate = var.project_metadata.ExpirationDate
+    Environment    = var.project_metadata.Environment
+  }
+}
