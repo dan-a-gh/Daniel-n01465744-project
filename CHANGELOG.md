@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.4.0 - 2024-03-03
+#### Features
+- Add linux module. Update doc. Add related screenshots - (0fc87db) - Daniel Allison
+
+- - -
+
 ## 0.3.0 - 2024-03-02
 #### Features
 - Add common module. Update doc. Add associated screenshots. - (c8830cb) - Daniel Allison
