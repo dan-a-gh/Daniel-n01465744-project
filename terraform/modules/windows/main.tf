@@ -5,45 +5,45 @@
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
 
 resource "azurerm_network_interface" "n01465744_windows_nic" {
-  for_each            = var.windows_vm.name
-  name                = "${each.key}-nic"
+  count               = var.windows_count
+  name                = "${var.windows_vm.name}-nic${format("%1d", count.index + 1)}"
   location            = var.windows_rg.location
   resource_group_name = var.windows_rg.resource_group_name
 
   ip_configuration {
-    name                          = each.key
+    name                          = "${var.windows_vm.name}-ipconfig${format("%1d", count.index + 1)}"
     subnet_id                     = var.windows_nic.ip_configuration.subnet_id
     private_ip_address_allocation = var.windows_nic.ip_configuration.private_ip_address_allocation
-    public_ip_address_id          = azurerm_public_ip.n01465744_windows_pip[each.key].id
+    public_ip_address_id          = azurerm_public_ip.n01465744_windows_pip[count.index].id
   }
 }
 
 resource "azurerm_public_ip" "n01465744_windows_pip" {
-  for_each            = var.windows_vm.name
-  name                = "${each.key}-pip"
+  count               = var.windows_count
+  name                = "${var.windows_vm.name}-pip${format("%1d", count.index + 1)}"
   resource_group_name = var.windows_rg.resource_group_name
   location            = var.windows_rg.location
   allocation_method   = var.windows_pip.allocation_method
-  domain_name_label   = each.key
+  domain_name_label   = "${var.windows_vm.name}${format("%1d", count.index + 1)}"
 }
 
 resource "azurerm_windows_virtual_machine" "n01465744_windows_vm" {
-  for_each            = var.windows_vm.name
-  name                = each.key
+  count               = var.windows_count
+  name                = "${var.windows_vm.name}${format("%1d", count.index + 1)}"
   resource_group_name = var.windows_rg.resource_group_name
   location            = var.windows_rg.location
-  size                = each.value
+  size                = var.windows_vm.size
   admin_username      = var.windows_vm.admin_username
   admin_password      = var.windows_vm.admin_password
-  computer_name       = each.key
+  computer_name       = "${var.windows_vm.name}${format("%1d", count.index + 1)}"
   network_interface_ids = [
-    azurerm_network_interface.n01465744_windows_nic[each.key].id,
+    element(azurerm_network_interface.n01465744_windows_nic[*].id, count.index + 1),
   ]
 
   os_disk {
     caching              = var.windows_vm.os_disk.caching
     storage_account_type = var.windows_vm.os_disk.storage_account_type
-    name                 = "${each.key}-ssd"
+    name                 = "${var.windows_vm.name}-ssd${format("%1d", count.index + 1)}"
   }
 
   source_image_reference {

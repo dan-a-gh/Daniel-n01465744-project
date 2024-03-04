@@ -11,11 +11,16 @@ variable "windows_rg" {
   })
 }
 
+variable "windows_count" {
+  type = number
+}
+
 variable "windows_vm" {
   type = object({
-    name           = map(string)
+    name           = string
     admin_username = string
     admin_password = string
+    size           = string
     os_disk = object({
       caching              = string
       storage_account_type = string

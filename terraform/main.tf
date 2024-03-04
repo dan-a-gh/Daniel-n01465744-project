@@ -189,11 +189,10 @@ module "windows" {
     resource_group_name = module.rgroup_n01465744.name
     location            = module.rgroup_n01465744.location
   }
-
+  windows_count = 1
   windows_vm = {
-    name = {
-      n01465744-w-vm1 = "Standard_B1s"
-    }
+    name           = "n01465744-w-vm"
+    size           = "Standard_B1s"
     admin_username = "n01465744"
     admin_password = data.azurerm_key_vault_secret.windows_admin_password.value
     os_disk = {
