@@ -182,3 +182,47 @@ module "linux_n01465744" {
     Environment    = var.project_metadata.Environment
   }
 }
+
+module "windows" {
+  source = "./modules/windows"
+  windows_rg = {
+    resource_group_name = module.rgroup_n01465744.name
+    location            = module.rgroup_n01465744.location
+  }
+
+  windows_vm = {
+    name = {
+      n01465744-w-vm1 = "Standard_B1s"
+    }
+    admin_username = "n01465744"
+    admin_password = data.azurerm_key_vault_secret.windows_admin_password.value
+    os_disk = {
+      caching              = "ReadWrite"
+      storage_account_type = "StandardSSD_LRS"
+    }
+    source_image_reference = {
+      publisher = "MicrosoftWindowsServer"
+      offer     = "WindowsServer"
+      sku       = "2016-Datacenter"
+      version   = "latest"
+    }
+    winrm_listener = "Http"
+  }
+
+  windows_avs = {
+    name                         = "windows_avs"
+    platform_fault_domain_count  = 2
+    platform_update_domain_count = 5
+  }
+
+  windows_nic = {
+    ip_configuration = {
+      subnet_id                     = module.network_n01465744.subnet_id
+      private_ip_address_allocation = "Dynamic"
+    }
+  }
+
+  windows_pip = {
+    allocation_method = "Dynamic"
+  }
+}
