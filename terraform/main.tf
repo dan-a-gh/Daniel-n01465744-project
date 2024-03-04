@@ -206,6 +206,14 @@ module "windows" {
       version   = "latest"
     }
     winrm_listener = "Http"
+    boot_diagnostics = {
+      storage_account_uri = module.common_n01465744.storage_account_uri
+    }
+  }
+  windows_vm_ext_antimalware = {
+    type                 = "IaaSAntimalware"
+    type_handler_version = "1.7"
+    publisher            = "Microsoft.Azure.Security"
   }
   windows_avs = {
     name                         = "windows_avs"

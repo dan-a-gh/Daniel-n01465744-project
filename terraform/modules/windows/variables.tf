@@ -36,6 +36,17 @@ variable "windows_vm" {
       version   = string
     })
     winrm_listener = string
+    boot_diagnostics = object({
+      storage_account_uri = string
+    })
+  })
+}
+
+variable "windows_vm_ext_antimalware" {
+  type = object({
+    type                 = string
+    type_handler_version = string
+    publisher            = string
   })
 }
 

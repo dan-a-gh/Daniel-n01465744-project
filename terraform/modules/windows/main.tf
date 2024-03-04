@@ -79,6 +79,22 @@ resource "azurerm_windows_virtual_machine" "n01465744_windows_vm" {
   }
 }
 
+resource "azurerm_virtual_machine_extension" "n01465744_windows_vm_ext_antimalware" {
+  count                = var.windows_count
+  name                 = "${var.windows_vm.name}-ext-av${format("%1d", count.index + 1)}"
+  virtual_machine_id   = element(azurerm_windows_virtual_machine.n01465744_windows_vm[*].id, count.index + 1)
+  type                 = var.windows_vm_ext_antimalware.type
+  type_handler_version = var.windows_vm_ext_antimalware.type_handler_version
+  publisher            = var.windows_vm_ext_antimalware.publisher
+  tags = {
+    Assignment     = var.project_metadata.Assignment
+    Name           = var.project_metadata.Name
+    ExpirationDate = var.project_metadata.ExpirationDate
+    Environment    = var.project_metadata.Environment
+    module         = local.Module
+  }
+}
+
 resource "azurerm_availability_set" "n01465744_windows_avs" {
   name                         = var.windows_avs.name
   location                     = var.windows_rg.location
