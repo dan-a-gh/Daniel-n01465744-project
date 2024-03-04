@@ -4,6 +4,10 @@
 # n01465744                                                                   #
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
 
+locals {
+  Module = "windows"
+}
+
 variable "windows_rg" {
   type = object({
     resource_group_name = string
@@ -55,5 +59,14 @@ variable "windows_nic" {
 variable "windows_pip" {
   type = object({
     allocation_method = string
+  })
+}
+
+variable "project_metadata" {
+  type = object({
+    Assignment     = string
+    Name           = string
+    ExpirationDate = string
+    Environment    = string
   })
 }

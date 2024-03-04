@@ -16,6 +16,13 @@ resource "azurerm_network_interface" "n01465744_windows_nic" {
     private_ip_address_allocation = var.windows_nic.ip_configuration.private_ip_address_allocation
     public_ip_address_id          = azurerm_public_ip.n01465744_windows_pip[count.index].id
   }
+  tags = {
+    Assignment     = var.project_metadata.Assignment
+    Name           = var.project_metadata.Name
+    ExpirationDate = var.project_metadata.ExpirationDate
+    Environment    = var.project_metadata.Environment
+    module         = local.Module
+  }
 }
 
 resource "azurerm_public_ip" "n01465744_windows_pip" {
@@ -25,6 +32,13 @@ resource "azurerm_public_ip" "n01465744_windows_pip" {
   location            = var.windows_rg.location
   allocation_method   = var.windows_pip.allocation_method
   domain_name_label   = "${var.windows_vm.name}${format("%1d", count.index + 1)}"
+  tags = {
+    Assignment     = var.project_metadata.Assignment
+    Name           = var.project_metadata.Name
+    ExpirationDate = var.project_metadata.ExpirationDate
+    Environment    = var.project_metadata.Environment
+    module         = local.Module
+  }
 }
 
 resource "azurerm_windows_virtual_machine" "n01465744_windows_vm" {
@@ -56,6 +70,13 @@ resource "azurerm_windows_virtual_machine" "n01465744_windows_vm" {
   winrm_listener {
     protocol = var.windows_vm.winrm_listener
   }
+  tags = {
+    Assignment     = var.project_metadata.Assignment
+    Name           = var.project_metadata.Name
+    ExpirationDate = var.project_metadata.ExpirationDate
+    Environment    = var.project_metadata.Environment
+    module         = local.Module
+  }
 }
 
 resource "azurerm_availability_set" "n01465744_windows_avs" {
@@ -64,4 +85,11 @@ resource "azurerm_availability_set" "n01465744_windows_avs" {
   resource_group_name          = var.windows_rg.resource_group_name
   platform_fault_domain_count  = var.windows_avs.platform_fault_domain_count
   platform_update_domain_count = var.windows_avs.platform_update_domain_count
+  tags = {
+    Assignment     = var.project_metadata.Assignment
+    Name           = var.project_metadata.Name
+    ExpirationDate = var.project_metadata.ExpirationDate
+    Environment    = var.project_metadata.Environment
+    module         = local.Module
+  }
 }

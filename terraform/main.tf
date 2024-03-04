@@ -207,21 +207,24 @@ module "windows" {
     }
     winrm_listener = "Http"
   }
-
   windows_avs = {
     name                         = "windows_avs"
     platform_fault_domain_count  = 2
     platform_update_domain_count = 5
   }
-
   windows_nic = {
     ip_configuration = {
       subnet_id                     = module.network_n01465744.subnet_id
       private_ip_address_allocation = "Dynamic"
     }
   }
-
   windows_pip = {
     allocation_method = "Dynamic"
+  }
+  project_metadata = {
+    Assignment     = var.project_metadata.Assignment
+    Name           = var.project_metadata.Name
+    ExpirationDate = var.project_metadata.ExpirationDate
+    Environment    = var.project_metadata.Environment
   }
 }
