@@ -151,6 +151,7 @@ module "linux_n01465744" {
     }
     boot_diagnostics = {
       storage_account_uri = module.common_n01465744.storage_account_uri
+      depends_on          = [module.common_n01465744.storage_account_uri]
     }
   }
   linux_vm_ext_net_watch = {
@@ -208,6 +209,7 @@ module "windows" {
     winrm_listener = "Http"
     boot_diagnostics = {
       storage_account_uri = module.common_n01465744.storage_account_uri
+      depends_on          = [module.common_n01465744.storage_account_uri]
     }
   }
   windows_vm_ext_antimalware = {
