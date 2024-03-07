@@ -126,7 +126,6 @@ module "vmlinux_n01465744" {
     platform_fault_domain_count  = 2
     platform_update_domain_count = 5
   }
-  linux_count = 2
   linux_nic = {
     ip_configuration = {
       subnet_id                     = module.network_n01465744.subnet_id
@@ -134,7 +133,7 @@ module "vmlinux_n01465744" {
     }
   }
   linux_vm = {
-    name                = "n01465744-u-vm"
+    name                = toset(["n01465744-u-vm1", "n01465744-u-vm2", "n01465744-u-vm3"])
     resource_group_name = module.rgroup_n01465744.name
     location            = module.rgroup_n01465744.location
     size                = "Standard_B1s"

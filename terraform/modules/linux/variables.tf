@@ -23,10 +23,6 @@ variable "linux_avs" {
   })
 }
 
-variable "linux_count" {
-  type = number
-}
-
 variable "linux_nic" {
   type = object({
     ip_configuration = object({
@@ -38,7 +34,7 @@ variable "linux_nic" {
 
 variable "linux_vm" {
   type = object({
-    name           = string
+    name           = set(string)
     size           = string
     admin_username = string
     os_disk = object({

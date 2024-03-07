@@ -5,7 +5,7 @@
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
 
 resource "null_resource" "n01465744_linux_provisioner" {
-  count = var.linux_count
+  for_each = var.linux_vm.name
   depends_on = [
     azurerm_linux_virtual_machine.n01465744_linux_vm
   ]
@@ -14,7 +14,7 @@ resource "null_resource" "n01465744_linux_provisioner" {
       type        = var.linux_provisioner.remote_exec.connection.type
       user        = var.linux_vm.admin_username
       private_key = file(var.private_key)
-      host        = element(azurerm_linux_virtual_machine.n01465744_linux_vm[*].public_ip_address, count.index + 1)
+      host        = azurerm_linux_virtual_machine.n01465744_linux_vm[each.key].public_ip_address
     }
     inline = [
       "/usr/bin/hostname"
