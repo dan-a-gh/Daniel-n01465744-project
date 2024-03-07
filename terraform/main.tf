@@ -115,7 +115,7 @@ module "common_n01465744" {
   }
 }
 
-module "linux_n01465744" {
+module "vmlinux_n01465744" {
   source = "./modules/linux"
   linux_rg = {
     name     = module.rgroup_n01465744.name
@@ -184,7 +184,7 @@ module "linux_n01465744" {
   }
 }
 
-module "windows" {
+module "vmwindows_n01465744" {
   source = "./modules/windows"
   windows_rg = {
     resource_group_name = module.rgroup_n01465744.name
@@ -230,6 +230,32 @@ module "windows" {
   }
   windows_pip = {
     allocation_method = "Dynamic"
+  }
+  project_metadata = {
+    Assignment     = var.project_metadata.Assignment
+    Name           = var.project_metadata.Name
+    ExpirationDate = var.project_metadata.ExpirationDate
+    Environment    = var.project_metadata.Environment
+  }
+}
+
+module "datadisk_n01465744" {
+  source = "./modules/data_disks"
+  rgroup = {
+    name     = module.rgroup_n01465744.name
+    location = module.rgroup_n01465744.location
+  }
+  virtual_machines = zipmap(
+    local.vm_hostnames,
+    local.vm_ids
+  )
+  data_disk = {
+    storage_account_type = "Standard_LRS"
+    create_option        = "Empty"
+    disk_size_gb         = 10
+  }
+  vm_disk_attachment = {
+    caching = "ReadWrite"
   }
   project_metadata = {
     Assignment     = var.project_metadata.Assignment

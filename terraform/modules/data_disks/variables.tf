@@ -5,14 +5,32 @@
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
 
 locals {
-  vm_hostnames = flatten(concat(
-    module.vmlinux_n01465744.linux_vm_hostnames,
-    module.vmwindows_n01465744.windows_vm_hostnames
-  ))
-  vm_ids = flatten(concat(
-    module.vmlinux_n01465744.linux_vm_ids,
-    module.vmwindows_n01465744.windows_vm_ids
-  ))
+  module = "data_disks"
+}
+
+variable "rgroup" {
+  type = object({
+    name     = string
+    location = string
+  })
+}
+
+variable "virtual_machines" {
+  type = map(string)
+}
+
+variable "data_disk" {
+  type = object({
+    storage_account_type = string
+    create_option        = string
+    disk_size_gb         = number
+  })
+}
+
+variable "vm_disk_attachment" {
+  type = object({
+    caching = string
+  })
 }
 
 variable "project_metadata" {
@@ -22,10 +40,4 @@ variable "project_metadata" {
     ExpirationDate = string
     Environment    = string
   })
-  default = {
-    Assignment     = "CCGC 5502 Automation Assignment"
-    Name           = "Daniel.Allison"
-    ExpirationDate = "2024-12-31"
-    Environment    = "Learning"
-  }
 }

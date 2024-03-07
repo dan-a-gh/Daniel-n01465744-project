@@ -19,3 +19,7 @@ output "windows_fqdn" {
 output "windows_vm_hostnames" {
   value = [azurerm_windows_virtual_machine.n01465744_windows_vm[*].name]
 }
+
+output "windows_vm_ids" {
+  value = [azurerm_windows_virtual_machine.n01465744_windows_vm[*].id]
+}
