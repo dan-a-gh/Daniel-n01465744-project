@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.6.0 - 2024-03-07
+#### Documentation
+- **(DataDisksModule)** Update docs for data disk module. Add related screenshots - (b6de0a8) - Daniel Allison
+#### Features
+- **(DataDisksModule)** Add data disks module - (07c180f) - Daniel Allison
+
+- - -
+
 ## 0.5.0 - 2024-03-05
 #### Bug Fixes
 - **(WindowsModule)** Add dependency on storage account uri for boot diagnostics - (f4fc8d0) - Daniel Allison
