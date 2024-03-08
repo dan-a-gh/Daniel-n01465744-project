@@ -13,6 +13,13 @@ locals {
     module.vmlinux_n01465744.linux_vm_ids,
     module.vmwindows_n01465744.windows_vm_ids
   ))
+  linux_nic_ip_configuration_name = flatten([
+    for nic_ip_config in module.vmlinux_n01465744.linux_nic_ip_configuration : [
+      for i in nic_ip_config : [
+        i.name
+      ]
+    ]
+  ])
 }
 
 variable "project_metadata" {

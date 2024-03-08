@@ -23,3 +23,11 @@ output "linux_vm_hostnames" {
 output "linux_vm_ids" {
   value = values(azurerm_linux_virtual_machine.n01465744_linux_vm)[*].id
 }
+
+output "linux_nic_id" {
+  value = values(azurerm_network_interface.n01465744_linux_nic)[*].id
+}
+
+output "linux_nic_ip_configuration" {
+  value = values(azurerm_network_interface.n01465744_linux_nic)[*].ip_configuration
+}

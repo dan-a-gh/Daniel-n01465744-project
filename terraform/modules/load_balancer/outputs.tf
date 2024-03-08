@@ -4,18 +4,6 @@
 # n01465744                                                                   #
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
 
-output "vnet_name" {
-  value = azurerm_virtual_network.n01465744_vnet.name
-}
-
-output "subnet_name" {
-  value = azurerm_subnet.n01465744_subnet.name
-}
-
-output "subnet_id" {
-  value = azurerm_subnet.n01465744_subnet.id
-}
-
-output "network_security_rule" {
-  value = azurerm_network_security_rule.n01465744_nsr
+output "lb_name" {
+  value = azurerm_lb.n01465744_lb.name
 }

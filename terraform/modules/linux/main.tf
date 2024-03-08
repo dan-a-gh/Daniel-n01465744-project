@@ -31,6 +31,7 @@ resource "azurerm_linux_virtual_machine" "n01465744_linux_vm" {
   network_interface_ids = [
     azurerm_network_interface.n01465744_linux_nic[each.key].id,
   ]
+  availability_set_id = azurerm_availability_set.n01465744_linux_avs.id
 
   admin_ssh_key {
     username   = var.linux_vm.admin_username

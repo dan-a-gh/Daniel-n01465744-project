@@ -263,3 +263,44 @@ module "datadisk_n01465744" {
     Environment    = var.project_metadata.Environment
   }
 }
+
+module "loadbalancer_n01465744" {
+  source = "./modules/load_balancer"
+  rgroup = {
+    name     = module.rgroup_n01465744.name
+    location = module.rgroup_n01465744.location
+  }
+  lb = {
+    name = "n01465744_lb"
+    frontend_ip_configuration = {
+      name = "PublicIPAddress"
+    }
+  }
+  lb_pip = {
+    name              = "n01465744-lb-pip"
+    allocation_method = "Dynamic"
+  }
+  lb_nat_rule = [
+    {
+      name                           = "http"
+      protocol                       = "Tcp"
+      frontend_port                  = 80
+      backend_port                   = 80
+      frontend_ip_configuration_name = "PublicIPAddress"
+    }
+  ]
+  lb_be_addr_pool = {
+    name = "backend"
+  }
+  linux_nic = zipmap(
+    local.linux_nic_ip_configuration_name,
+    module.vmlinux_n01465744.linux_nic_id
+  )
+  project_metadata = {
+    Assignment     = var.project_metadata.Assignment
+    Name           = var.project_metadata.Name
+    ExpirationDate = var.project_metadata.ExpirationDate
+    Environment    = var.project_metadata.Environment
+  }
+  depends_on = [module.vmlinux_n01465744.linux_nic_id]
+}
