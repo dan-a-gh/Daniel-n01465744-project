@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.9.0 - 2024-03-08
+#### Features
+- **(RootModule)** Add final outputs.tf to root module - (4124fe5) - Daniel Allison
+
+- - -
+
 ## 0.8.1 - 2024-03-08
 #### Bug Fixes
 - **(DBModule)** Add tags to db module. - (b11b5f4) - Daniel Allison
