@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.8.0 - 2024-03-08
+#### Features
+- **(DBModule)** Add PostgreSQL database module. - (f233638) - Daniel Allison
+
+- - -
+
 ## 0.7.0 - 2024-03-08
 #### Bug Fixes
 - **(WindowsModule)** Add dependency on storage account uri for boot diagnostics - (f4fc8d0) - Daniel Allison
