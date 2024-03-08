@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.8.1 - 2024-03-08
+#### Bug Fixes
+- **(DBModule)** Add tags to db module. - (b11b5f4) - Daniel Allison
+
+- - -
+
 ## 0.8.0 - 2024-03-08
 #### Features
 - **(DBModule)** Add PostgreSQL database module. - (f233638) - Daniel Allison
