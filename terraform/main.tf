@@ -325,4 +325,10 @@ module "database_n01465744" {
     ssl_enforcement_enabled          = true
     ssl_minimal_tls_version_enforced = "TLS1_2"
   }
+  project_metadata = {
+    Assignment     = var.project_metadata.Assignment
+    Name           = var.project_metadata.Name
+    ExpirationDate = var.project_metadata.ExpirationDate
+    Environment    = var.project_metadata.Environment
+  }
 }

@@ -4,6 +4,10 @@
 # n01465744                                                                   #
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
 
+locals {
+  Module = "linux"
+}
+
 variable "rgroup" {
   type = object({
     name     = string
@@ -25,5 +29,14 @@ variable "psql_server" {
     public_network_access_enabled    = bool
     ssl_enforcement_enabled          = bool
     ssl_minimal_tls_version_enforced = string
+  })
+}
+
+variable "project_metadata" {
+  type = object({
+    Assignment     = string
+    Name           = string
+    ExpirationDate = string
+    Environment    = string
   })
 }

@@ -21,4 +21,12 @@ resource "azurerm_postgresql_server" "n01465744_psql_server" {
   public_network_access_enabled    = var.psql_server.public_network_access_enabled
   ssl_enforcement_enabled          = var.psql_server.ssl_enforcement_enabled
   ssl_minimal_tls_version_enforced = var.psql_server.ssl_minimal_tls_version_enforced
+
+  tags = {
+    Assignment     = var.project_metadata.Assignment
+    Name           = var.project_metadata.Name
+    ExpirationDate = var.project_metadata.ExpirationDate
+    Environment    = var.project_metadata.Environment
+    module         = local.Module
+  }
 }
