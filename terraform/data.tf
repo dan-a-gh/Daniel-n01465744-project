@@ -13,3 +13,8 @@ data "azurerm_key_vault_secret" "windows_admin_password" {
   name         = "WindowsAdminPassword"
   key_vault_id = data.azurerm_key_vault.n01465744_kv.id
 }
+
+data "azurerm_key_vault_secret" "db_admin_password" {
+  name         = "psqlpassword"
+  key_vault_id = data.azurerm_key_vault.n01465744_kv.id
+}
