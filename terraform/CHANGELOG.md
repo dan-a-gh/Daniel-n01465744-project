@@ -2,6 +2,29 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.7.0 - 2024-03-08
+#### Bug Fixes
+- **(WindowsModule)** Add dependency on storage account uri for boot diagnostics - (f4fc8d0) - Daniel Allison
+#### Documentation
+- **(DataDisksModule)** Update docs for data disk module. Add related screenshots - (b6de0a8) - Daniel Allison
+- Update doc with Windows module code, style fixes. Add screenshots. - (c3b7c0b) - Daniel Allison
+#### Features
+- **(DataDisksModule)** Add data disks module - (07c180f) - Daniel Allison
+- **(LBModule)** Add load balancer module. - (59c2d52) - Daniel Allison
+- **(WindowsModule)** (Broken) Add antimalware extension. Add boot diagnostics. - (9dfe888) - Daniel Allison
+- **(WindowsModule)** Add initial Windows module code - (40c3e81) - Daniel Allison
+#### Miscellaneous Chores
+- **(version)** 0.6.0 - (7e2d26f) - Daniel Allison
+- **(version)** 0.5.0 - (27f559c) - Daniel Allison
+#### Refactoring
+- **(LinuxModule)** Linux module now uses for_each with 3 VMs to match spec. - (1279734) - Daniel Allison
+- **(WindowsModule)** Use count instead of foreach - (c9e56d9) - Daniel Allison
+#### Style
+- **(WindowsModule)** Add tags - (0281262) - Daniel Allison
+- **(WindowsModule)** Change resource names to follow spec - (f4b5d89) - Daniel Allison
+
+- - -
+
 ## 0.6.0 - 2024-03-07
 #### Documentation
 - **(DataDisksModule)** Update docs for data disk module. Add related screenshots - (b6de0a8) - Daniel Allison
