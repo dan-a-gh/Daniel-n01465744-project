@@ -1,0 +1,9 @@
+---
+# tasks file for profile-n01465744
+- name: Append lines to {{ profile.path }}
+  ansible.builtin.blockinfile:
+    create: "{{ profile.create }}"
+    path: "{{ profile.path }}"
+    block: "{{ profile.block }}"
+    insertafter: "{{ profile.insert_after }}"
+...

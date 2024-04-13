@@ -1,0 +1,10 @@
+---
+# vars file for profile-n01465744
+profile:
+  path: /etc/profile
+  create: true
+  block: |
+    "#Test block added by Ansible……n01465744"
+    export TMOUT=1500
+  insert_after: EOF
+...
