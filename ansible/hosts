@@ -1,0 +1,13 @@
+[linux]
+n01465744-u-vm1.canadacentral.cloudapp.azure.com
+n01465744-u-vm2.canadacentral.cloudapp.azure.com
+n01465744-u-vm3.canadacentral.cloudapp.azure.com
+
+[os:children]
+linux
+
+[linux:vars]
+ansible_user = n01465744
+ansible_ssh_private_key_file = ~/.ssh/id_rsa
+ansible_become_method = sudo
+ansible_become_user = root

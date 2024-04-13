@@ -1,0 +1,23 @@
+---
+# vars file for datadisk-n01465744
+partition_1:
+  device: /dev/sdc
+  number: 1
+  name: part1
+  label: gpt
+  fs_type: xfs
+  part_start: 0GiB
+  part_end: 4GiB
+  state: present
+  mount: /part1
+partition_2:
+  device: /dev/sdc
+  number: 2
+  name: part2
+  label: gpt
+  fs_type: ext4
+  part_start: 4GiB
+  part_end: 9GiB
+  state: present
+  mount: /part2
+  

@@ -1,0 +1,24 @@
+---
+# tasks file for datadisk-n01465744
+- name: Create a new xfs partition
+  community.general.parted:
+    device: "{{ partition_1.device }}"
+    number: "{{ partition_1.number }}"
+    name: "{{ partition_1.name }}"
+    label: "{{ partition_1.label }}"
+    fs_type: "{{ partition_1.fs_type }}"
+    state: "{{ partition_1.state }}"
+    part_end: "{{ partition_1.part_end }}"
+  notify: mount_xfs_partition
+
+- name: Create a new ext4 partition
+  community.general.parted:
+    device: "{{ partition_2.device }}"
+    number: "{{ partition_2.number }}"
+    name: "{{ partition_2.name }}"
+    label: "{{ partition_2.label }}"
+    fs_type: "{{ partition_2.fs_type }}"
+    state: "{{ partition_2.state }}"
+    part_start: "{{ partition_2.part_start }}"
+    part_end: "{{ partition_2.part_end }}"
+  notify: mount_ext4_partition

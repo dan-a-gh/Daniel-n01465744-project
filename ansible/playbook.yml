@@ -1,0 +1,6 @@
+---
+- name: Main playbook for project
+  hosts: linux
+  roles:
+    - datadisk-n01465744
+...
