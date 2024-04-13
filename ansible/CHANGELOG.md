@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.11.0 - 2024-04-13
+#### Documentation
+- **(ProfileRole)** Add screenshots for profile role - (3b5aee9) - Daniel Allison
+#### Features
+- **(ProfileRole)** Add file update / profile role - (93f72d6) - Daniel Allison
+
+- - -
+
 ## 0.10.1 - 2024-04-13
 #### Bug Fixes
 - **(DataDiskRole)** Refactor and fix datadisk role - (3fc8778) - Daniel Allison
