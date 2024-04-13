@@ -10,6 +10,7 @@ partition_1:
   part_end: 4GiB
   state: present
   mount: /part1
+  mount_state: mounted
 partition_2:
   device: /dev/sdc
   number: 2
@@ -20,4 +21,5 @@ partition_2:
   part_end: 9GiB
   state: present
   mount: /part2
-  
+  mount_state: mounted
+...
