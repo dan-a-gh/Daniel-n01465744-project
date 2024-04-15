@@ -1,0 +1,56 @@
+---
+# tasks file for user-n01465744
+
+# common tasks
+- name: Create group
+  ansible.builtin.group:
+    name: "{{ group.name }}"
+    gid: "{{ group.gid }}"
+    state: "{{ group.state }}"
+
+- name: Create local users with ssh keys
+  ansible.builtin.user:
+    name: "{{ item['name'] }}"
+    state: "{{ user_common.state }}"
+    generate_ssh_key: "{{ user_common.generate_ssh_key }}"
+    ssh_key_bits: "{{ user_common.ssh_key_bits }}"
+  loop: "{{ userlist }}"
+  delegate_to: localhost
+
+- name: Create remote users
+  ansible.builtin.user:
+    name: "{{ item['name'] }}"
+    uid: "{{ item['uid'] }}"
+    state: "{{ user_common.state }}"
+    groups: "{{ group.name }}, wheel"
+  loop: "{{ userlist }}"
+
+- name: Set permissions on ssh key on localhost
+  ansible.builtin.file:
+    path: "/home/{{ item['name'] }}/.ssh/id_rsa.pub"
+    mode: '0644'
+  loop: "{{ userlist }}"
+  delegate_to: localhost
+
+- name: Copy keys into memory
+  ansible.builtin.slurp:
+    src: "{{ item['key_file'] }}"
+  register: slurped_key_files
+  loop: "{{ userlist }}"
+  delegate_to: localhost
+
+- name: Copy ssh keys to remote hosts from memory
+  ansible.builtin.copy:
+    content: "{{ item[1]['results']['content'] | b64decode }}"
+    dest: "/home/{{ item[0]['name'] }}/.ssh/id_rsa.pub"
+  with_nested:
+    - "{{ userlist }}"
+    - "{{ slurped_key_files }}"
+
+- name: Add pub ssh key to authorized keys
+  ansible.builtin.authorized_key:
+    user: "{{ item['name'] }}"
+    state: "{{ user_common['ssh_key_state'] }}"
+    key: "{{ lookup('file', item['key_file']) }}"
+  loop: "{{ userlist }}"
+...

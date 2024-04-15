@@ -1,0 +1,26 @@
+---
+# vars file for user-n01465744
+group:
+  name: cloudadmins
+  gid: 3000
+  state: present
+
+userlist:
+  - name: user100
+    uid: 5001
+    key_file: /home/user100/.ssh/id_rsa.pub
+  - name: user200
+    uid: 5002
+    key_file: /home/user200/.ssh/id_rsa.pub
+  - name: user300
+    uid: 5003
+    key_file: /home/user300/.ssh/id_rsa.pub
+
+user_common:
+  state: present
+  generate_ssh_key: true
+  ssh_key_bits: 4096
+  ssh_key_state: present
+
+local_user: danielallison
+...
