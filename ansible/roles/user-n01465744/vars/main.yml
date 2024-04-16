@@ -20,7 +20,7 @@ user_common:
   ssh_key_state: present
   create_home: true
   shell: /bin/bash
-  secondary_groups: ['wheel']
+  secondary_groups: ['wheel', 'cloudadmins']
 
 local_user: danielallison
 ...

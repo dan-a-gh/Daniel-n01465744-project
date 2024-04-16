@@ -31,15 +31,15 @@ variable "lb_pip" {
   })
 }
 
-variable "lb_nat_rule" {
-  type = list(object({
-    name                           = string
-    protocol                       = string
-    frontend_port                  = number
-    backend_port                   = number
-    frontend_ip_configuration_name = string
-  }))
-}
+#variable "lb_nat_rule" {
+#  type = list(object({
+#    name                           = string
+#    protocol                       = string
+#    frontend_port                  = number
+#    backend_port                   = number
+#    frontend_ip_configuration_name = string
+#  }))
+#}
 
 variable "lb_be_addr_pool" {
   type = object({

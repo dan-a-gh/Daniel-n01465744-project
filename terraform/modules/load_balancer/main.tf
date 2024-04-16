@@ -37,16 +37,16 @@ resource "azurerm_lb" "n01465744_lb" {
   }
 }
 
-resource "azurerm_lb_nat_rule" "n01465744_lb_nat_rule" {
-  for_each                       = tomap({ for i in var.lb_nat_rule : i.name => i })
-  resource_group_name            = var.rgroup.name
-  loadbalancer_id                = azurerm_lb.n01465744_lb.id
-  name                           = each.value.name
-  protocol                       = each.value.protocol
-  frontend_port                  = each.value.frontend_port
-  backend_port                   = each.value.backend_port
-  frontend_ip_configuration_name = each.value.frontend_ip_configuration_name
-}
+# resource "azurerm_lb_nat_rule" "n01465744_lb_nat_rule" {
+#   for_each                       = tomap({ for i in var.lb_nat_rule : i.name => i })
+#   resource_group_name            = var.rgroup.name
+#   loadbalancer_id                = azurerm_lb.n01465744_lb.id
+#   name                           = each.value.name
+#   protocol                       = each.value.protocol
+#   frontend_port                  = each.value.frontend_port
+#   backend_port                   = each.value.backend_port
+#   frontend_ip_configuration_name = each.value.frontend_ip_configuration_name
+# }
 
 resource "azurerm_lb_backend_address_pool" "n01465744_lb_be_addr_pool" {
   loadbalancer_id = azurerm_lb.n01465744_lb.id
@@ -59,4 +59,14 @@ resource "azurerm_network_interface_backend_address_pool_association" "n01465744
   ip_configuration_name   = each.key
   backend_address_pool_id = azurerm_lb_backend_address_pool.n01465744_lb_be_addr_pool.id
   depends_on              = [var.linux_nic]
+}
+
+resource "azurerm_lb_rule" "n01465744_azurerm_lb_rule" {
+  name                           = "TCP"
+  loadbalancer_id                = azurerm_lb.n01465744_lb.id
+  protocol                       = "Tcp"
+  frontend_port                  = 80
+  backend_port                   = 80
+  frontend_ip_configuration_name = var.lb.frontend_ip_configuration.name
+  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.n01465744_lb_be_addr_pool.id]
 }
