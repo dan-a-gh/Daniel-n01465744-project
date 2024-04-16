@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.12.0 - 2024-04-16
+#### Features
+- **(UserRole)** Add finished user role, and associated helper playbooks. - (bb804db) - Daniel Allison
+- **(UserRole)** Add user role. WIP - (c07face) - Daniel Allison
+
+- - -
+
 ## 0.11.0 - 2024-04-13
 #### Documentation
 - **(ProfileRole)** Add screenshots for profile role - (3b5aee9) - Daniel Allison
