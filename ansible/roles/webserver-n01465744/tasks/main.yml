@@ -1,0 +1,29 @@
+---
+# tasks file for webserver-n01465744
+- name: Flush handlers
+  meta: flush_handlers
+
+- name: Install {{ web_packages }}
+  ansible.builtin.dnf:
+    name: "{{ web_packages }}"
+    state: latest
+  notify: restart_package_services
+
+- name: Create html files for {{ vm_names }}
+  ansible.builtin.lineinfile:
+    path: "/tmp/{{ item[0] }}.html"
+    line: "{{ item[1] }}"
+    create: yes
+    insertafter: EOF
+  loop: "{{ vm_names | zip(hostnames) }}"
+  delegate_to: localhost
+  run_once: true
+
+- name: Copy files to remote
+  ansible.builtin.copy:
+    src: "/tmp/{{ item[0] }}.html"
+    dest: "{{ index_html_path }}"
+    mode: '0444'
+  loop: "{{ vm_names | zip(hostnames) }}"
+  delegate_to: "{{ item[1] }}"
+    

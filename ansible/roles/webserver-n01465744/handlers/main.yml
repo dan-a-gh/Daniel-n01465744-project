@@ -1,0 +1,8 @@
+---
+# handlers file for webserver-n01465744
+- name: restart_package_services
+  ansible.builtin.systemd:
+    name: httpd.service
+    enabled: true
+    state: restarted
+  listen: restart_package_services
