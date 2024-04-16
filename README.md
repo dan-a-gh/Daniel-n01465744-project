@@ -16,3 +16,6 @@ Cloud Computing Graduate Certificate 5502 Automation Course Project Implementati
 - cd ansible
 - ansible-playbook setup_users_localhost.yml
 - ansible-playbook playbook.yml
+
+## Known Issues:
+See issues.
