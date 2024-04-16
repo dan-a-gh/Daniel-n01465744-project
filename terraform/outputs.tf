@@ -68,6 +68,10 @@ output "lb_name" {
   value = module.loadbalancer_n01465744.lb_name
 }
 
+output "lb_fqdn" {
+  value = module.loadbalancer_n01465744.lb_fqdn.fqdn
+}
+
 # NETWORK
 # -----------------------------------------------------------------------------
 
@@ -119,4 +123,10 @@ output "windows_vm_hostnames" {
 
 output "windows_vm_ids" {
   value = module.vmwindows_n01465744.windows_vm_ids
+}
+
+# DATA DISKS
+# 
+output "data_disks_attachment" {
+  value = module.datadisk_n01465744.data_disks_attachment
 }

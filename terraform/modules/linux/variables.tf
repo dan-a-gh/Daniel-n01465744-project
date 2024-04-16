@@ -101,3 +101,7 @@ variable "project_metadata" {
     Environment    = string
   })
 }
+
+variable "data_disk_attach" {
+
+}

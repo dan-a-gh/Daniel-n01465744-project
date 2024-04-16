@@ -175,6 +175,7 @@ module "vmlinux_n01465744" {
       }
     }
   }
+  data_disk_attach = module.datadisk_n01465744
   project_metadata = {
     Assignment     = var.project_metadata.Assignment
     Name           = var.project_metadata.Name
@@ -280,15 +281,6 @@ module "loadbalancer_n01465744" {
     name              = "n01465744-lb-pip"
     allocation_method = "Dynamic"
   }
-  lb_nat_rule = [
-    {
-      name                           = "http"
-      protocol                       = "Tcp"
-      frontend_port                  = 80
-      backend_port                   = 80
-      frontend_ip_configuration_name = "PublicIPAddress"
-    }
-  ]
   lb_be_addr_pool = {
     name = "backend"
   }
