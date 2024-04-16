@@ -17,7 +17,11 @@ resource "null_resource" "n01465744_linux_provisioner" {
       host        = azurerm_linux_virtual_machine.n01465744_linux_vm[each.key].public_ip_address
     }
     inline = [
-      "/usr/bin/hostname"
+      "python3 -m pip install --user pipx",
+      "python3 -m pipx ensurepath",
+      "sudo pipx ensurepath --global",
+      "pipx install --include-deps ansible",
+      "ansible-playbook ../ansible/playbook.yml"
     ]
   }
 }
