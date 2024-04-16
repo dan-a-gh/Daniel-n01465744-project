@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.13.0 - 2024-04-16
+#### Features
+- **(WebServerRole)** Add webserver role - (377e972) - Daniel Allison
+
+- - -
+
 ## 0.12.0 - 2024-04-16
 #### Features
 - **(UserRole)** Add finished user role, and associated helper playbooks. - (bb804db) - Daniel Allison
