@@ -37,17 +37,6 @@ resource "azurerm_lb" "n01465744_lb" {
   }
 }
 
-# resource "azurerm_lb_nat_rule" "n01465744_lb_nat_rule" {
-#   for_each                       = tomap({ for i in var.lb_nat_rule : i.name => i })
-#   resource_group_name            = var.rgroup.name
-#   loadbalancer_id                = azurerm_lb.n01465744_lb.id
-#   name                           = each.value.name
-#   protocol                       = each.value.protocol
-#   frontend_port                  = each.value.frontend_port
-#   backend_port                   = each.value.backend_port
-#   frontend_ip_configuration_name = each.value.frontend_ip_configuration_name
-# }
-
 resource "azurerm_lb_backend_address_pool" "n01465744_lb_be_addr_pool" {
   loadbalancer_id = azurerm_lb.n01465744_lb.id
   name            = var.lb_be_addr_pool.name
