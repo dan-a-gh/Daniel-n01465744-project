@@ -1,82 +1,13 @@
 ---
-- name: Create a group called cloudadmins on localhost and linux hosts
-  group:
-    name: cloudadmins
-    state: present
-  delegate_to: "{{ item }}"
-  loop:
-    - localhost
-    - n01465744-u-vm1.canadacentral.cloudapp.azure.com
-    - n01465744-u-vm2.canadacentral.cloudapp.azure.com
-    - n01465744-u-vm3.canadacentral.cloudapp.azure.com
+# Run the playbook setup_users_localhost.yml before this one
+#
+# ansible-playbook ../../setup_users_localhost.yml -K
+#
+# TODO: Integrate this as a task
+#
+# - name: Setup users localhost
+#   import_tasks: setup_users_localhost.yml
 
-- name: Create users with SSH keys on localhost
-  user:
-    name: "{{ item }}"
-    group: cloudadmins
-    generate_ssh_key: yes
-    ssh_key_bits: 2048
-    ssh_key_file: ".ssh/id_rsa_{{ item }}"
-  loop:
-    - user100
-    - user200
-    - user300
-  delegate_to: localhost
-
-- name: Create users on linux hosts
-  user:
-    name: "{{ item }}"
-    group: cloudadmins
-  loop:
-    - user100
-    - user200
-    - user300
-
-# - name: Set permissions on each user's SSH public key
-#   ansible.builtin.file:
-#     path: "/var/home/{{ item }}/.ssh/id_rsa_{{ item }}.pub"
-#     owner: "{{ local_user }}"
-#     group: cloudadmins
-#     mode: '0755'
-#   loop:
-#     - user100
-#     - user200
-#     - user300
-#   delegate_to: localhost
-
-# - name: Ensure .ssh directory is readable for other users
-#   ansible.builtin.file:
-#     path: "/var/home/{{ item }}/.ssh"
-#     owner: "{{ local_user }}"
-#     group: cloudadmins
-#     state: directory
-#     mode: '0755'
-#   loop:
-#     - user100
-#     - user200
-#     - user300
-#   delegate_to: localhost
-
-- name: Copy the SSH key files into memory
-  ansible.builtin.slurp:
-    src: "/var/home/{{ item }}/.ssh/id_rsa_{{ item }}.pub"
-  register: slurped_key_files
-  delegate_to: localhost
-  loop:
-    - user100
-    - user200 
-    - user300
-    
-- name: Copy the SSH public keys to remote hosts
-  copy:
-    content: "{{ item[1]['content'] | b64decode }}"
-    dest: "/tmp/id_rsa_{{ item[0] }}.pub"
-    mode: 744
-  loop: "{{ ['user100', 'user200', 'user300'] | zip(slurped_key_files['results']) | list }}"
-
-- name: Add SSH keys to authorized_keys
-  authorized_key:
-    user: "{{ item[0] }}"
-    state: present
-    key: "{{ item[1]['content'] | b64decode }}"
-  loop: "{{ ['user100', 'user200', 'user300'] | zip(slurped_key_files['results']) | list }}"
+- name: Setup users remote
+  import_tasks: setup_users_remote.yml
+  

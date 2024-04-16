@@ -1,0 +1,37 @@
+---
+# setup_users_remote.yml
+- name: Create a group called "{{ primary_group['name'] }}" linux hosts
+  group:
+    name: "{{ primary_group['name'] }}"
+    state: "{{ primary_group['state'] }}"
+
+- name: Create users on linux hosts
+  user:
+    name: "{{ item['name'] }}"
+    group: "{{ primary_group['name'] }}"
+    groups: "{{ user_common['secondary_groups'] }}"
+    append: true
+    create_home: "{{ user_common['create_home'] }}"
+  loop: "{{ userlist }}"
+
+- name: Copy the SSH key files into memory
+  ansible.builtin.slurp:
+    src: "/var/home/{{ item['name'] }}/.ssh/id_rsa_{{ item['name'] }}.pub"
+  register: slurped_key_files
+  loop: "{{ userlist }}"
+  delegate_to: localhost
+  run_once: true
+    
+- name: Copy the SSH public keys to remote hosts
+  copy:
+    content: "{{ item[1]['content'] | b64decode }}"
+    dest: "/tmp/id_rsa_{{ item[0] }}.pub"
+    mode: 744
+  loop: "{{ ['user100', 'user200', 'user300'] | zip(slurped_key_files['results']) | list }}"
+
+- name: Add SSH keys to authorized_keys
+  authorized_key:
+    user: "{{ item[0] }}"
+    state: "{{ user_common['state'] }}"
+    key: "{{ item[1]['content'] | b64decode }}"
+  loop: "{{ ['user100', 'user200', 'user300'] | zip(slurped_key_files['results']) | list }}"

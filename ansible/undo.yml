@@ -1,0 +1,37 @@
+- name: Remove specified users and their home directories, and remove group on linux hosts
+  hosts: linux
+  become: yes
+  tasks:
+    - name: Remove users user100, user200, and user300 from linux hosts
+      ansible.builtin.user:
+        name: "{{ item }}"
+        state: absent
+        remove: yes
+      loop:
+        - user100
+        - user200
+        - user300
+
+    - name: Remove group cloudadmins on linux hosts
+      ansible.builtin.group:
+        name: cloudadmins
+        state: absent
+
+- name: Remove specified users and their home directories, and remove group on localhost
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Remove users user100, user200, and user300 from localhost
+      ansible.builtin.user:
+        name: "{{ item }}"
+        state: absent
+        remove: yes
+      loop:
+        - user100
+        - user200
+        - user300
+
+    - name: Remove group cloudadmins on localhost
+      ansible.builtin.group:
+        name: cloudadmins
+        state: absent

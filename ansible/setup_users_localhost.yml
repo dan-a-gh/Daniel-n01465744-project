@@ -1,0 +1,56 @@
+---
+- name: Setup users on localhost
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    - group:
+        name: cloudadmins
+        gid: 3000
+        state: present
+
+    - userlist:
+      - name: user100
+        uid: 5001
+      - name: user200
+        uid: 5002
+      - name: user300
+        uid: 5003
+
+    - user_common:
+        state: present
+        generate_ssh_key: true
+        ssh_key_bits: 4096
+        ssh_key_state: present
+        create_home: true
+        shell: /bin/bash
+  
+  tasks:
+    - name: Create a group called "{{ group['name'] }}" on localhost
+      ansible.builtin.group:
+        name: "{{ group['name'] }}"
+        state: "{{ group['state'] }}"
+    
+    - name: Create users on localhost
+      ansible.builtin.user:
+        name: "{{ item['name'] }}"
+        group: "{{ group['name'] }}"
+        create_home: "{{ user_common['create_home'] }}"
+        shell: "{{ user_common['shell'] }}"
+      loop: "{{ userlist }}"
+    
+    - name: Change ownership of home directories
+      ansible.builtin.file:
+        path: "/home/{{ item['name'] }}"
+        owner: "{{ item['name'] }}"
+        group: "{{ group['name'] }}"
+        recurse: yes
+      loop: "{{ userlist }}"
+    
+    - name: Create users with SSH keys on localhost
+      ansible.builtin.user:
+        name: "{{ item['name'] }}"
+        ssh_key_bits: "{{ user_common['ssh_key_bits'] }}"
+        ssh_key_file: ".ssh/id_rsa_{{ item['name'] }}"
+        generate_ssh_key: "{{ user_common['generate_ssh_key'] }}"
+      loop: "{{ userlist }}"
