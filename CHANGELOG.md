@@ -2,6 +2,18 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.14.0 - 2024-04-17
+#### Documentation
+- **(docs)** Update README.md with info on known issues. - (a34822b) - Daniel Allison
+- **(docs)** Update README.md with ansible instructions - (8a04e8f) - Daniel Allison
+#### Features
+- **(LinuxProvisioner)** Linux provisioner now installs Ansible and attempts to run playbook (WIP) - (80cd993) - Daniel Allison
+- Add fixes. Provisioner has dependency on data disks module, and uses local-exec instead of remote-exec. Add lb_fqdn output. Comment out useless NAT rule. Add cloudadmins to secondary group. Remove quotes from profile role vars file block. - (6f161c2) - Daniel Allison
+#### Style
+- **(LoadBalancerModule)** Remove commented out NAT rule for load_balancer - (d774a5a) - Daniel Allison
+
+- - -
+
 ## 0.4.0 - 2024-03-03
 #### Features
 - Add linux module. Update doc. Add related screenshots - (0fc87db) - Daniel Allison
